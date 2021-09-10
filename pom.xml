@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>practicas-cloud</groupId>
 	<artifactId>baseline-service</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -59,6 +59,12 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope> <!-- scope es el alcance de la libreria para que no se aplique en todo el pryecto -->
 		</dependency>
 
 

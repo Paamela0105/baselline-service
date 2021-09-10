@@ -1,30 +1,58 @@
+/* 
+* This program is free software: you can redistribute it and/or modify  
+* it under the terms of the GNU General Public License as published by  
+* the Free Software Foundation, version 3.
+*
+* This program is distributed in the hope that it will be useful, but 
+* WITHOUT ANY WARRANTY; without even the implied warranty of 
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+* General Public License for more details.
+*
+* Nombre de archivo: ApplicationController.java
+* Autor: padelgad
+* Fecha de creación: 10 sep. 2021
+*/
 package com.tis.mx.application.controller;
 
-import java.util.function.Supplier;
+import java.util.List;
 
 import com.tis.mx.application.dto.InitialInvestmentDto;
+import com.tis.mx.application.dto.InvestmentYieldDto;
+import com.tis.mx.application.service.CompoundInterestCalculator;
 import com.tis.mx.application.service.impl.CompoundInterestCalculatorImpl;
 
+/**
+ * The Class ApplicationController.
+ */
 public class ApplicationController {
 	
-	public static void main(String[] args) {
-		//Supplier<InitialInvestmentDto> supplierUser = () -> {
-			InitialInvestmentDto user = new InitialInvestmentDto();
-			
-			user.setInitialInvestment(1100);
-			user.setYearlyInput(2);
-			user.setYearlyInpuntIncrement(5);
-			user.setInvestmentYield(2);
-			user.setInvestmentYears(4);
-			
-			//return user;
-		//};
-		
-		//InitialInvestmentDto user = new InitialInvestmentDto();
-		CompoundInterestCalculatorImpl validate = new CompoundInterestCalculatorImpl();
-		System.out.println(user.toString());
-		System.out.println(validate.validateInput(user));
+	/** The calculator. */
+	private CompoundInterestCalculator calculator;
+	
+	/**
+	 * Instantiates a new application controller.
+	 *
+	 * @param calculator the calculator
+	 */
+	public ApplicationController(CompoundInterestCalculator calculator) {
+		this.calculator = calculator;
 	}
+	
+	/**
+	 * Creates the table yield.
+	 *
+	 * @param initialInvestmentDto the initial investment dto
+	 * @return the list
+	 */
+	public List<InvestmentYieldDto> createTableYield (InitialInvestmentDto initialInvestmentDto){
+		if(calculator.validateInput(initialInvestmentDto)) {
+			return calculator.createRevenueGrid(initialInvestmentDto);
+		}
+		
+		throw new CalculatorInputException("No es posible procesar su solicitud con los datos proporcionados");
+	}
+	
+	
 	
 
 }
